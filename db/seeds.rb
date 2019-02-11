@@ -9,8 +9,16 @@ end
 # blacklist = ["China", "Westbank"]
 
 countries_hash.values.each do |value|
-  Country.create(Scraper.scrape("https://www.cia.gov/library/publications/the-world-factbook/geos/#{value}.html")) unless value == "ch" || value == "nr"
+  if value != "ch" && value != "nr"
+    Country.create(Scraper.scrape("https://www.cia.gov/library/publications/the-world-factbook/geos/#{value}.html"))
+  elsif value == "nr"
+    Country.create(Scraper.nauru_scrape)
+  elsif value == "ch"
+    Country.create(Scraper.chinese_scrape)
+  end
 end
+
+
 
 binding.pry
 0
