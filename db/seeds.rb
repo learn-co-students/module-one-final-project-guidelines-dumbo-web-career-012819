@@ -1,12 +1,11 @@
 require_relative "../config/environment.rb"
+require 'Factbook'
 
 countries_hash = {}
 codes = Factbook.codes.countries
 codes.each do |country|
    countries_hash[country.name] = country.code
 end
-
-# blacklist = ["China", "Westbank"]
 
 countries_hash.values.each do |value|
   if value != "ch" && value != "nr"

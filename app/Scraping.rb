@@ -1,12 +1,6 @@
 require 'open-uri'
 require 'nokogiri'
 require 'pry'
-require 'Factbook'
-
-
-
-# sovereign_countries = country_abrv.slice(0..195)
-
 
 
 class Scraper

@@ -6,4 +6,7 @@ gem "sinatra-activerecord"
 gem "sqlite3"
 gem "pry"
 gem "require_all"
-gem "factbook"
+gem "tty-prompt"
+
+# ENABLE this gem when seeding
+# gem "factbook"
