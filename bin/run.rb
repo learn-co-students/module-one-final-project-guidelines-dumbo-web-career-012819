@@ -23,35 +23,26 @@ def create_user
 	name = gets.chomp
 	user = user_check(name)
 	user = User.create(name: name)
-
 	main_menu
-
-
 end
 
 def main_menu
-	menu = [
-		{"Take the quiz" => -> do take_quiz end},
-		{"View quiz history" => -> do view_history end},
-		{"Update user name" => -> do update_name end},
-		{"Clear quiz history" => -> do clear_history end},
-		{"View list of all characters" => -> do character_list end},
-		{"Exit" => -> do exit_app end}
-	]
 	prompt = TTY::Prompt.new
-	decision = prompt.select("Choose something", menu)
+	prompt.select("Choose something") do |menu|
+		menu.choice 'View the list of all characters', -> {character_list}
+		menu.choice 'Exit', -> {exit_app}
+	end
 	main_menu
 end
 
 def character_list
-	binding.pry
-	GOTCharacter.characters.each do |name, id|
-		puts name
+	GOTCharacter.all.each do |character|
+		puts character.name
 	end
 end
 
 def exit_app
-	
+	exit
 end
 
 create_user
