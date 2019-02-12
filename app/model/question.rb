@@ -93,32 +93,72 @@ class Question < ActiveRecord::Base
   end
 
   def self.generate_q6(prompt, game)
-  this_question = self.create(game_id: game.id)
+    this_question = self.create(game_id: game.id)
 
-   rand_country = Country.all.sample
-   all_lang = []
+    rand_country = Country.all.sample
+    all_lang = []
+    Country.all.each do |country|
+      langs = country.languages.split(" ")
+      all_lang << langs[0]
+    end
+    all_lang = all_lang.uniq
+    languages = rand_country.languages.split(" ")
+    choice_arr = [all_lang.sample, languages[0], all_lang.sample]
+    choice1 = choice_arr.sample
+    choice_arr.delete(choice1)
+    choice2 = choice_arr.sample
+    choice_arr.delete(choice2)
+    choice3 = choice_arr.sample
+    user = prompt.select("What is the most popular language in #{rand_country.name}?") do |menu|
+      menu.choice choice1
+      menu.choice choice2
+      menu.choice choice3
+    end
+    if user == languages[0]
+      puts "That is correct"
+      this_question.game.increment!(:total_points)
+    else
+      puts "That is wrong"
+    end
+ end
+
+ def self.generate_q7(prompt, game)
+   this_question = self.create(game_id: game.id)
+
+   country_by_letter = Hash.new(0)
    Country.all.each do |country|
-     langs = country.languages.split(" ")
-     all_lang << langs[0]
+     country_by_letter[country.name[0]] += 1
    end
-   all_lang = all_lang.uniq
-   languages = rand_country.languages.split(" ")
-   choice_arr = [all_lang.sample, languages[0], all_lang.sample]
-   choice1 = choice_arr.sample
-   choice_arr.delete(choice1)
-   choice2 = choice_arr.sample
-   choice_arr.delete(choice2)
-   choice3 = choice_arr.sample
-   user = prompt.select("What is the most popular language in #{rand_country.name}?") do |menu|
-     menu.choice choice1
-     menu.choice choice2
-     menu.choice choice3
+   abc = ["A", "B","C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U","V","W", "X", "Y", "Z"]
+   letter = abc.sample
+   correct_num = country_by_letter[letter]
+   range1 = correct_num - rand(10)
+   range2 = correct_num + rand(10)
+   incorrect_num1 = rand(range1..range2)
+   incorrect_num2 = rand(range1..range2)
+   binding.pry
+   if incorrect_num2 < 0 || incorrect_num2 == correct_num
+     incorrect_num2 = correct_num + 10
+   elsif incorrect_num1 < 0 || incorrect_num1 == correct_num
+     incorrect_num1 = correct_num + 10
    end
-   if user == languages[0]
-     puts "That is correct"
-     this_question.game.increment!(:total_points)
-   else
-     puts "That is wrong"
-   end
+   choice_arr = [correct_num, incorrect_num2, incorrect_num1,]
+     choice1 = choice_arr.sample
+     choice_arr.delete(choice1)
+     choice2 = choice_arr.sample
+     choice_arr.delete(choice2)
+     choice3 = choice_arr.sample
+
+   user = prompt.select("How many countries begin with the letter: #{letter}?") do |menu|
+       menu.choice choice1
+       menu.choice choice2
+       menu.choice choice3
+     end
+     if user.to_i == correct_num
+       puts "That is correct"
+       this_question.game.increment!(:total_points)
+     else
+       puts "That is wrong"
+     end
  end
 end
