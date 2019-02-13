@@ -41,13 +41,3 @@ GotCharacter.create(name: qyburn[0]["name"], min_score: 81, max_score: 85)
 GotCharacter.create(name: cersei[0]["name"], min_score: 86, max_score: 90)
 GotCharacter.create(name: gregor[0]["name"], min_score: 91, max_score: 95)
 GotCharacter.create(name: joffrey[0]["name"], min_score: 96, max_score: 100)
-
-# brienne_description = ""
-# sansa_description = ""
-# eddard_description = ""
-# jon_description = ""
-# bran_description = ""
-# tyrion_description = ""
-# daenarys_description = ""
-# sandor_description = ""
-# robert_description = ""
