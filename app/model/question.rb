@@ -119,7 +119,7 @@ class Question < ActiveRecord::Base
      incorrect_num1 = correct_num + 10
    end
    input = self.multiple_choice_rand(prompt, this_question, correct_num, incorrect_num1, incorrect_num2)
-   self.answer_box(correct_num, input, this_question)
+   self.answer_box(correct_num, input.to_i, this_question)
  end
 
  def self.multiple_choice_rand(prompt, question, correct, wrong, wrong2)
