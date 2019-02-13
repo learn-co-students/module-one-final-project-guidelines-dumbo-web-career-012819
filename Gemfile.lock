@@ -16,7 +16,15 @@ GEM
     coderay (1.1.1)
     concurrent-ruby (1.0.5)
     equatable (0.5.0)
+    factbook (1.2.2)
+      activerecord
+      fetcher
+      logutils
+      nokogiri
+    fetcher (0.4.5)
+      logutils (>= 0.6)
     i18n (0.8.1)
+    logutils (0.6.1)
     method_source (0.8.2)
     mini_portile2 (2.4.0)
     minitest (5.10.1)
@@ -79,6 +87,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  factbook
   nokogiri
   pastel
   pry
@@ -90,4 +99,4 @@ DEPENDENCIES
   tty-prompt
 
 BUNDLED WITH
-   1.16.6
+   1.17.3

@@ -6,7 +6,7 @@ user = User.new_user(prompt)
 
 def run(prompt, user)
 
-  choices = ["New Game", "My Highscore", "Leaderboard", "Exit"]
+  choices = ["New Game", "My Highscore", "Leaderboard", "Delete Games","Exit"]
 
   input = prompt.select("Menu", choices)
   if input == "New Game"
@@ -19,6 +19,9 @@ def run(prompt, user)
     run(prompt, user)
   elsif input == "Leaderboard"
     User.leaders_table
+    run(prompt, user)
+  elsif input == "Delete Games"
+    user.delete_games(prompt, user)
     run(prompt, user)
   elsif input == "Exit"
     puts "BYEEEEEE"
