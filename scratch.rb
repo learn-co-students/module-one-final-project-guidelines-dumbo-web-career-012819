@@ -1,37 +1,80 @@
 require_relative "config/environment.rb"
 
-def compare_pop_question
-  prompt = TTY::Prompt.new
+pastel = Pastel.new
 
-  country1 = Country.all.sample
-  country2 = Country.all.sample
-  answer = country1.population > country2.population ? country1.name : country2.name
 
-  choices = [country1.name, country2.name]
-  input = prompt.select("Which country has a larger population?", choices)
-  # binding.pry
+prompt = TTY::Prompt.new
+font = TTY::Font.new(:starwars)
+puts font.write("Access Labs")
 
-  if input == answer
-    puts "CORRECTO MUNDO!"
-  else
-    puts "WRONG!"
-  end
+
+right_answer_box = TTY::Box.frame(
+ width: 150,
+ height: 10,
+ align: :center,
+ padding: 3,
+ border: :thick,
+ style: {
+ fg: :black,
+ bg: :green}
+
+) do "WOOOHOOO" end;
+
+wrong_answer_box = TTY::Box.frame(
+ width: 150,
+ height: 10,
+ align: :center,
+ padding: 3,
+ border: :thick,
+ style: {
+ fg: :black,
+ bg: :red}
+) do "WRONG" end;
+
+
+
+answer = prompt.select("Choose your destiny?", %w(Scorpion Kano Jax))
+if answer == 'Scorpion'
+   puts right_answer_box
+   pid = fork{ exec 'afplay', "media/Homer-Woohoo!(1).wav" }
+   # “afplay ../sound/Homer-Woohoo!(1).wav”
+
+else
+   puts wrong_answer_box
+   # afplay “../sound/Homer-D’oh!(1).wav”
+   pid = fork{ exec 'afplay', "media/Homer-D'oh!(1).wav" }
 end
 
-def compare_area_question
-  prompt = TTY::Prompt.new
 
-  country1 = Country.all.sample
-  country2 = Country.all.sample
-  answer = country1.total_area > country2.total_area ? country1.name : country2.name
 
-  choices = [country1.name, country2.name]
-  input = prompt.select("Which country has a larger land mass?", choices)
-  # binding.pry
+flag =
+<<~HEREDOC
+  __
+ <__>
+  ||________________________________________________________
+  ||########################################################|
+  ||########################################################|
+  ||########################################################|
+  ||########################################################|
+  ||########################################################|
+  ||########################################################|
+  ||########################################################|
+  ||########################################################|
+  ||########################################################|
+  ||########################################################|
+  ||~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ||
+  ||
+  ||
+  ||
 
-  if input == answer
-    puts "CORRECTO MUNDO!"
-  else
-    puts "WRONG!"
-  end
-end
+
+HEREDOC
+
+
+
+
+
+
+
+"Byeeee"
