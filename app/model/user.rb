@@ -20,15 +20,15 @@ class User < ActiveRecord::Base
      game.total_points
    end.total_points
   else
-    puts "Oops! You have no games! \xF0\x9F\x98\xA1"
+    "Oops! You have no games! \xF0\x9F\x98\xA1"
   end
  end
 
 
 def self.leaders_table
   list = []
-  valid_users = User.all.select{|user| user.my_highscore != nil}
-  
+  valid_users = User.all.select{|user| user.my_highscore.is_a?(Integer)}
+
   users = valid_users.sort{|user1, user2| user1.my_highscore <=> user2.my_highscore}.reverse
   users.each_with_index {|user, index| list << "#{index + 1}. #{user.name} | #{user.my_highscore} |"}
   list.each do |user|

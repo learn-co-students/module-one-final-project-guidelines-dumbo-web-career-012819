@@ -2,6 +2,12 @@ require_relative '../config/environment'
 
 prompt = TTY::Prompt.new
 
+pastel = Pastel.new
+
+font = TTY::Font.new("3d")
+puts pastel.red(font.write('Hello'))
+puts pastel.green(font.write('World'))
+
 user = User.new_user(prompt)
 
 def run(prompt, user)
