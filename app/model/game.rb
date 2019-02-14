@@ -53,6 +53,14 @@ class Game < ActiveRecord::Base
   end
 
   def display_game_score
-    puts "You scored #{Game.find(self.id).total_points}/14"
+    @@heart_box = TTY::Box.frame(
+     width: TTY::Screen.width,
+     height: 10,
+     align: :center,
+     padding: 3,
+     border: :thick,
+    ) do "#{Game.find(self.id).total_points}/14!" end;
+
   end
+
 end
