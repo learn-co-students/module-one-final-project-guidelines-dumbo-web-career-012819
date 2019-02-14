@@ -10,6 +10,7 @@ gem "tty-prompt"
 gem "tty-box"
 gem "tty-font"
 gem "pastel"
+gem "fiddle"
 
 # ENABLE this gem when seeding
-# gem "factbook"
+gem "factbook"

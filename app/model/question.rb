@@ -2,7 +2,7 @@ class Question < ActiveRecord::Base
   belongs_to :game
 
   @@right_answer_box = TTY::Box.frame(
-   width: 150,
+   width: TTY::Screen.width,
    height: 10,
    align: :center,
    padding: 3,
@@ -13,8 +13,6 @@ class Question < ActiveRecord::Base
 
   ) do "WOOOHOOO" end;
 
-
-  # @@questions_templates = [method(:compare_pop_question)]
   def self.generate_q1(prompt, game)
     country1 = Country.all.sample
     country2 = Country.all.sample
@@ -23,7 +21,6 @@ class Question < ActiveRecord::Base
     this_question = self.create(game_id: game.id, interrogative_sentence: "Which country has a larger population?", answer: answer)
     choices = [country1.name, country2.name]
     input = prompt.select("Which country has a larger population?", choices)
-    # binding.pry
 
     self.answer_box(answer, input, this_question)
   end
@@ -31,13 +28,22 @@ class Question < ActiveRecord::Base
   def self.generate_q2(prompt, game)
     country1 = Country.all.sample
     country2 = Country.all.sample
+
+    #The "Chad Patch" ------------
+   broken_countries = ["Niger", "Chad"]
+   if broken_countries.include?(country1.name)
+     country1.total_area *= 1000
+   elsif broken_countries.include?(country2.name)
+     country2.total_area *= 1000
+   end
+   #-----------------------------
+
     answer = country1.total_area > country2.total_area ? country1.name : country2.name
 
     this_question = self.create(game_id: game.id, interrogative_sentence: "Which country has a larger land mass?", answer: answer)
 
     choices = [country1.name, country2.name]
     input = prompt.select("Which country has a larger land mass?", choices)
-    # binding.pry
 
     self.answer_box(answer, input, this_question)
   end
@@ -56,11 +62,25 @@ class Question < ActiveRecord::Base
   end
 
   def self.generate_q4(prompt, game)
-
     country1 = Country.all.sample
     country2 = Country.all.sample
     country3 = Country.all.sample
     answer = country1.government_type
+
+    loop do
+     if answer.include?(country2.government_type)
+       country2 = Country.all.sample
+     else
+       break
+     end
+   end
+   loop do
+     if answer.include?(country3.government_type) || country2.government_type == country3.government_type
+       country3 = Country.all.sample
+     else
+       break
+     end
+   end
 
     this_question = self.create(game_id: game.id, interrogative_sentence: "What is the system of government of #{country1.name}", answer: answer)
 
@@ -148,7 +168,7 @@ class Question < ActiveRecord::Base
  def self.generate_wrong_box(answer)
 
    @@wrong_answer_box = TTY::Box.frame(
-    width: 150,
+    width: TTY::Screen.width,
     height: 10,
     align: :center,
     padding: 3,

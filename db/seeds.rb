@@ -16,8 +16,3 @@ countries_hash.values.each do |value|
     Country.create(Scraper.chinese_scrape)
   end
 end
-
-
-
-binding.pry
-0
