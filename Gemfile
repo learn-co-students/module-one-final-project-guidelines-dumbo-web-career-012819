@@ -13,4 +13,4 @@ gem "pastel"
 gem "fiddle"
 
 # ENABLE this gem when seeding
-# gem "factbook"
+gem "factbook"
