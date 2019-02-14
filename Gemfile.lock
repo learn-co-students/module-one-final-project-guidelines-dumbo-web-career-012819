@@ -23,6 +23,7 @@ GEM
       nokogiri
     fetcher (0.4.5)
       logutils (>= 0.6)
+    fiddle (1.0.0)
     i18n (0.8.1)
     logutils (0.6.1)
     method_source (0.8.2)
@@ -88,6 +89,7 @@ PLATFORMS
 
 DEPENDENCIES
   factbook
+  fiddle
   nokogiri
   pastel
   pry
