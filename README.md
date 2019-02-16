@@ -22,9 +22,13 @@
     gem "tty-file"
 
     ```
-3. On the 'environment.rb' file comment 'ActiveRecord::Base.logger.level = 1' 
+   ![](ProjectCloning.gif)
+    
+3. In the 'environment.rb' file comment 'ActiveRecord::Base.logger.level = 1', in the terminal, type “rake db:migrate” 
+   to create tables, then “rake db:seed” to create some dummy data to play around then uncomment
+   'ActiveRecord::Base.logger.level = 1'.
+   
+   ![](BasicSetup.gif)
 
-4. In the terminal, type “rake db:migrate” to create tables, then “rake db:seed”
-   to create some dummy data to play around then uncomment 'ActiveRecord::Base.logger.level = 1'.
+4. Now you are ready for the app! on the main directory type "ruby bin/run.rb".
 
-5. Now you are ready for the app! on the main directory type "ruby bin/run.rb" Have fun~~~~~~~~~~
