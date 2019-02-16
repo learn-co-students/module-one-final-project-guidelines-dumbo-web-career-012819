@@ -17,11 +17,12 @@ class Artwork < ActiveRecord::Base
 
   def delete_artwork(current_user)
     user_artwork = self.user_artwork(current_user)
-    if user_artwork.sold = true
+    if user_artwork.sold == true
       UserArtwork.delete_all(artwork_id: self.id)
       Artwork.find(self.id).delete
+    else
+      user_artwork.delete
     end
-    user_artwork.delete
   end
 
 
