@@ -7,7 +7,7 @@
 
 1. Fork and clone this repository.
 
-2. In your terminal, type in “bundle install” for below gems:
+2. In your terminal, make sure homebrew is up to dat by typing “brew install” then type in “bundle install” for below gems:
     ```
     gem "sinatra-activerecord"
     gem "sqlite3"
@@ -17,10 +17,9 @@
     gem "tty-prompt"
     gem "lolcat"
     gem "colorize"
-    gem "tty"
-    gem "tty-table"
     gem "tty-file"
-
+    gem "figlet"
+    
     ```
    ![](ProjectCloning.gif)
 
